@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admins List</title>
+  </head>
+  <body>
+    <table id="listadmin">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th class="text-center" colspan="3">Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- List Admin -->
+    <script>
+      // Définir une requête de connection standard JS
+      var request = new XMLHttpRequest();
+      // Choisir la méthode GET comme une méthode d'accès au serveur et récupérer les données .
+      request.open("GET", "http://127.0.0.1:3000/admins", true);
+      // Load les données à partir de la serveur -> Début connection
+      request.onload = function () {
+        // Begin accessing JSON data here
+        var data = JSON.parse(this.response);
+        var table = document.getElementById("listAdmin");
+        console.log(data);
+        var j = 1;
+        data.forEach((i) => {
+          // Insérer une ligne dans le tableau
+          var row = table.insertRow(-1);
+          // Insérer une cellule dans le tableau
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+          var cell4 = row.insertCell(3);
+          var cell5 = row.insertCell(4);
+          var cell6 = row.insertCell(5);
+          var cell7 = row.insertCell(6);
+
+          cell1.innerHTML = j;
+          cell2.innerHTML = i.username;
+          cell3.innerHTML = i.email;
+          cell4.innerHTML = i.password;
+          cell5.innerHTML =
+            "<a href=viewAdmin.html?id=" + i._id + "> View </a>";
+          cell6.innerHTML =
+            "<a href=updateAdmin.html?id=" + i._id + "> Update </a>";
+          cell7.innerHTML =
+            "<a href=deleteAdmin.html?id=" + i._id + "> Delete </a>";
+          j = j + 1;
+        });
+      };
+      // Send request
+      request.send();
+    </script>
+  </body>
+</html>
